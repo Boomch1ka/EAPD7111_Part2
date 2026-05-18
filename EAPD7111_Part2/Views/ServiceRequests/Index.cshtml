@@ -1,0 +1,48 @@
+﻿@model IEnumerable<EAPD7111_Part2.Models.ServiceRequest>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center text-primary mb-4">Service Requests</h2>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+        {
+            <p>@error.ErrorMessage</p>
+        }
+    </div>
+}
+
+<div class="card shadow-sm p-4">
+    <table class="table table-bordered table-hover">
+        <thead class="table-primary">
+            <tr>
+                <th>Description</th>
+                <th>Cost (USD)</th>
+                <th>Cost (ZAR)</th>
+                <th>Status</th>
+                <th>Contract</th>
+                <th>Client</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var request in Model)
+            {
+                <tr>
+                    <td>@request.Description</td>
+                    <td>@request.CostUSD</td>
+                    <td>@request.CostZAR</td>
+                    <td>@request.Status</td>
+                    <td>@request.Contract?.ServiceLevel</td>
+                    <td>@request.Contract?.Client?.Name</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="text-center mt-3">
+    <a asp-action="Create" class="btn btn-primary">Add New Service Request</a>
+</div>

@@ -1,0 +1,43 @@
+﻿@model IEnumerable<EAPD7111_Part2.Models.Client>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Clients</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Contact</th>
+            <th>Region</th>
+            <th>Contracts</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var client in Model)
+        {
+            <tr>
+                <td>@client.Name</td>
+                <td>@client.ContactDetails</td>
+                <td>@client.Region</td>
+
+                <td>
+                    @if (client.Contracts != null && client.Contracts.Any())
+                    {
+                        <ul>
+                            @foreach (var contract in client.Contracts)
+                            {
+                                <li>@contract.ServiceLevel (@contract.Status)</li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <span>No contracts</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a asp-action="Create" class="btn btn-primary">Add New Client</a>

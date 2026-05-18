@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewData["Title"] = "Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Welcome to EventEase</h2>
+<p>This is your landing page. Use the navigation bar to access Clients, Contracts, and Service Requests.</p>
+
+<ul>
+    <li><a asp-controller="ClientC" asp-action="Index">Clients</a></li>
+    <li><a asp-controller="ContractC" asp-action="Index">Contracts</a></li>
+    <li><a asp-controller="ServiceRequestsC" asp-action="Index">Service Requests</a></li>
+</ul>

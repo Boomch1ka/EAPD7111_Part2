@@ -1,0 +1,55 @@
+﻿@model IEnumerable<EAPD7111_Part2.Models.Contract>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Contracts</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Client</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Status</th>
+            <th>Service Level</th>
+            <th>Agreement</th>
+            <th>Service Requests</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var contract in Model)
+        {
+            <tr>
+                <td>@contract.Client?.Name</td>
+                <td>@contract.StartDate.ToShortDateString()</td>
+                <td>@contract.EndDate.ToShortDateString()</td>
+                <td>@contract.Status</td>
+                <td>@contract.ServiceLevel</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(contract.SignedAgreementPath))
+                    {
+                        <a href="@contract.SignedAgreementPath" target="_blank">View PDF</a>
+                    }
+                </td>
+                <td>
+                    @if (contract.ServiceRequests != null && contract.ServiceRequests.Any())
+                    {
+                        <ul>
+                            @foreach (var sr in contract.ServiceRequests)
+                            {
+                                <li>@sr.Description - ZAR @sr.CostZAR</li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <span>No requests</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Create" class="btn btn-primary">Add New Contract</a>
